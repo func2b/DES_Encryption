@@ -1,0 +1,10 @@
+./src/tb_top.v
+./src/PC2.v
+./src/P_box.v
+./src/gen_keys.v
+./src/round_func.v
+./src/S_boxes.v
+./src/E_box.v
+./src/final_P.v
+./src/des_top.v
+./src/initial_p.v
