@@ -1,7 +1,10 @@
 `timescale 1ns / 1ps
 
 module tb_top;
-
+	initial begin
+		$fsdbDumpfile("wave.fsdb");
+		$fsdbDumpvars("+all");
+	end
 	// Inputs
 	reg clk;
 	reg rst_n;
@@ -33,19 +36,27 @@ module tb_top;
 		#100;
         
 		// Add stimulus here
-		rst_n = 1;
-		plainText = 64'hfedcba9876543210;
-		key = 64'h1122334455667788;
 		forever begin
 			#5 clk<=0;
 			#5 clk<=1;
 		end
-
 	end
 	
 	initial begin
-		#500 plainText = 64'h00dcb00006543210; rst_n = 0;
+		#0 plainText = 64'hfedcba9876543210; key = 64'h1122334455667788;
 		#10 rst_n = 1;
+
+		#500 plainText = 64'h00dcb00006543210; key = 64'h1122334455667788; rst_n = 0;
+		#10 rst_n = 1;
+
+		#500 plainText = 64'h00dcb00006543210; key = 64'h8877665544332211;  rst_n = 0;
+		#10 rst_n = 1;
+
+		#500 plainText = 64'hfedcba9876543210; key = 64'h8877665544332211; rst_n = 0;
+		#10 rst_n = 1;
+
+		#500 rst_n = 0;
+	       	#10 $finish;
 	end
       
 endmodule
